@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = System.Random;
 public struct EmptySpace
 {
-    int rowPosition { get; set; }
-    int colPosition { get; set; }
+   public int rowPosition { get; set; }
+   public int colPosition { get; set; }
 
     public EmptySpace(int row, int col) : this()
     {
@@ -17,12 +17,22 @@ public struct EmptySpace
 
 public class Gameplay 
 {
+    //List for holding Empty Space
+    List<EmptySpace> emptySpaceList;
     //Map
     private int[,] space;
     //Combine the array element
     private int[] combineArray;
     // Remove the zero element
     private int[] RemoveEmptyElement;
+    //random number 
+    private Random random;
+    //Previous map
+    private int[,] previous;
+
+    //Check for game status
+    public bool checking { get; set; }
+
    public enum Movement
     {
         Up,
@@ -34,9 +44,13 @@ public class Gameplay
   
     public Gameplay()
     {
+        //initial
         space = new int[4, 4];
+        previous = new int[4, 4];
         combineArray = new int[4];
         RemoveEmptyElement = new int[4];
+        emptySpaceList = new List<EmptySpace>(16);
+        random = new Random();
     }
 
     private void GoUp()
@@ -136,6 +150,8 @@ public class Gameplay
     }
     public void Move(Movement d)
     {
+        Array.Copy(space, previous, space.Length);
+        checking = false;
         switch(d)
         {
             case Movement.Up:
@@ -151,6 +167,60 @@ public class Gameplay
                 GoRight();
                 break;
         }
+        Compare();
 
+    }
+
+    public void findingEmptySpace()
+    {
+        for(int row = 0; row < 4;row++)
+        {
+            for(int col = 0; col < 4; col++)
+            {
+                if(space[row,col] == 0)
+                {
+                    emptySpaceList.Add(new EmptySpace(row, col));
+                }
+            }
+        }
+    }
+
+    public void spawnNewNumber()
+    {
+        findingEmptySpace();
+
+        if(emptySpaceList.Count > 0)
+        {
+            int index = random.Next(0, emptySpaceList.Count);
+            EmptySpace position = emptySpaceList[index];
+            space[position.rowPosition, position.colPosition]= random.Next(0, 10) == 1 ? 4 : 2;
+            emptySpaceList.RemoveAt(index);
+        }
+
+    }
+
+    public void Compare()
+    {
+        for (int row = 0; row < 4; row++)
+        {
+            for (int col = 0; col < 4; col++)
+            {
+                if (space[row, col] != previous[row,col] )
+                {
+                    checking = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    public bool Gameover()
+    {
+        if(emptySpaceList.Count > 0 )
+        {
+            return false;
+        }
+
+        return true;
     }
 }
