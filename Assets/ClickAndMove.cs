@@ -24,15 +24,20 @@ public class ClickAndMove : MonoBehaviour
         int cur = 1;
         bool flag = true;
         foreach(var num in MapCreater.instance.numbers) {
-            if (num == null) Debug.Log("NULL");
-            else Debug.Log(num.tag);
-           //if(cur.ToString() != num.tag) {
-           //     flag = false;
-           //     break;
-           //}
-            //cur++;
+            if (num != null)
+            {
+                if (cur.ToString() != num.tag)
+                {
+                    flag = false;
+                    break;
+                }
+                cur++;
+            }
+             
+           
+           
         }
-        Debug.Log("sssssssssss");
+     
 
         if (flag) Debug.Log("win");
     }
