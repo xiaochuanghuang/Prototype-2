@@ -12,6 +12,6 @@ public class GameAssets : MonoBehaviour
 
     public void setNewImage(int number)
     {
-
+        newImage.sprite = AssetsManager.getImg(number);
     }
 }

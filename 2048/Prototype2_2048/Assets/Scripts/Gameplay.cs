@@ -14,13 +14,19 @@ public struct EmptySpace
         this.rowPosition = row;
     }
 }
-
+public enum Movement
+{
+    Up,
+    Down,
+    Left,
+    Right
+}
 public class Gameplay 
 {
     //List for holding Empty Space
     List<EmptySpace> emptySpaceList;
     //Map
-    private int[,] space;
+    public int[,] space;
     //Combine the array element
     private int[] combineArray;
     // Remove the zero element
@@ -33,13 +39,7 @@ public class Gameplay
     //Check for game status
     public bool checking { get; set; }
 
-   public enum Movement
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
+  
 
   
     public Gameplay()
@@ -59,13 +59,13 @@ public class Gameplay
         {
             for (int row = 0; row <= 3; row++)
             {
-                this.combineArray[row] = this.space[col, row];
+                combineArray[row] = space[row, col];
             }
             Combined();
 
             for (int row = 0; row <= 3; row++)
             {
-                this.space[row, col] = combineArray[row];
+                space[row, col] = combineArray[row];
             }
         }
     }
@@ -76,13 +76,13 @@ public class Gameplay
         {
             for (int row = 3; row >= 0; row--)
             {
-                this.combineArray[3 - row] = this.space[col, row];
+                combineArray[3 - row] = space[row, col];
             }
             Combined();
 
             for (int row = 3; row >= 0; row--)
             {
-                this.space[row, col] = combineArray[3-row];
+                space[row, col] = combineArray[3-row];
             }
         }
     }
@@ -92,13 +92,13 @@ public class Gameplay
         {
             for (int row = 0; row <= 3; row++)
             {
-                this.combineArray[row] = this.space[col, row];
+                combineArray[row] = space[col, row];
             }
             Combined();
 
             for (int row = 0; row <= 3; row++)
             {
-                this.space[col, row] = combineArray[row];
+               space[col, row] = combineArray[row];
             }
         }
 
@@ -109,26 +109,26 @@ public class Gameplay
         {
             for(int row = 3; row >=0;row --)
             {
-                this.combineArray[3 - row] = this.space[col, row];
+               combineArray[3 - row] = space[col, row];
             }
             Combined();
 
             for (int row = 3; row >= 0; row--)
             {
-                this.space[col, row] = combineArray[3-row];
+                space[col, row] = combineArray[3-row];
             }
         }
     }
     private void Combined()
     {
         removeZeroElement();
-
+      
         for(int i = 0; i<combineArray.Length-1;i++)
         {
             if(combineArray[i] == combineArray[i+1])
             {
                 combineArray[i] += combineArray[i + 1];
-                combineArray[i + i] = 0;   
+                combineArray[i + 1] = 0;   
             }
         }
         removeZeroElement();
@@ -173,6 +173,7 @@ public class Gameplay
 
     public void findingEmptySpace()
     {
+        emptySpaceList.Clear();
         for(int row = 0; row < 4;row++)
         {
             for(int col = 0; col < 4; col++)
@@ -185,17 +186,31 @@ public class Gameplay
         }
     }
 
-    public void spawnNewNumber()
+    public void spawnNewNumber(out EmptySpace? s, out int? nums )
     {
-        findingEmptySpace();
 
-        if(emptySpaceList.Count > 0)
+        findingEmptySpace();
+       if(emptySpaceList.Count == 0)
+        {
+            s = null;
+            nums = null;
+        }
+        else
         {
             int index = random.Next(0, emptySpaceList.Count);
-            EmptySpace position = emptySpaceList[index];
-            space[position.rowPosition, position.colPosition]= random.Next(0, 10) == 1 ? 4 : 2;
+            s = emptySpaceList[index];
+            nums = this.space[s.Value.rowPosition, s.Value.colPosition]
+                 = random.Next(1, 11) == 1 ? 4 : 2;
             emptySpaceList.RemoveAt(index);
         }
+       
+        //if(emptySpaceList.Count > 0)
+        //{
+        //    int index = random.Next(0, emptySpaceList.Count);
+        //    EmptySpace position = emptySpaceList[index];
+        //    space[position.rowPosition, position.colPosition]= random.Next(0, 10) == 1 ? 4 : 2;
+        //    emptySpaceList.RemoveAt(index);
+        //}
 
     }
 
