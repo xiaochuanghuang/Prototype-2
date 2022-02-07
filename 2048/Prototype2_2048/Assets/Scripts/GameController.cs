@@ -7,12 +7,16 @@ public class GameController : MonoBehaviour
 {
     private Gameplay gameplay;
     private GameAssets[,] assetsArr;
+    private CommandSystem cs;
+
 
     // Start is called before the first frame update
     void Start()
     {
         gameplay = new Gameplay();
         assetsArr = new GameAssets[4, 4];
+        cs = GetComponent<CommandSystem>();
+       
         initialize();
         for (int i = 0; i < 2; i++)
         {
@@ -73,25 +77,36 @@ public class GameController : MonoBehaviour
             updating();
             generateNumber();
         }
-
-        if(gameplay.Gameover())
-        {
-
-        }
         gameplay.checking = false;
       
     }
 
-    private void getInput()
+    public void getInput()
     {
         if (Input.GetKeyDown(KeyCode.W))
-            gameplay.Move(Movement.Up);
+        //gameplay.Move(Movement.Up);
+        {
+            MoveCommand mc = new MoveCommand(gameplay,Movement.Up);
+            cs.execute(mc);
+        }
         if (Input.GetKeyDown(KeyCode.S))
-            gameplay.Move(Movement.Down);
+        {
+            MoveCommand mc = new MoveCommand(gameplay, Movement.Down);
+            cs.execute(mc);
+        }
+            //gameplay.Move(Movement.Down);
         if (Input.GetKeyDown(KeyCode.A))
-            gameplay.Move(Movement.Left);
+        //gameplay.Move(Movement.Left);
+        {
+            MoveCommand mc = new MoveCommand(gameplay, Movement.Left);
+            cs.execute(mc);
+        }
         if (Input.GetKeyDown(KeyCode.D))
-            gameplay.Move(Movement.Right);
+        //gameplay.Move(Movement.Right);
+        {
+            MoveCommand mc = new MoveCommand(gameplay, Movement.Right);
+            cs.execute(mc);
+        }
 
     }
  

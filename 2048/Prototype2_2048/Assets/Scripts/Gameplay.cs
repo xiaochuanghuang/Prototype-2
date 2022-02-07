@@ -203,14 +203,6 @@ public class Gameplay
                  = random.Next(1, 11) == 1 ? 4 : 2;
             emptySpaceList.RemoveAt(index);
         }
-       
-        //if(emptySpaceList.Count > 0)
-        //{
-        //    int index = random.Next(0, emptySpaceList.Count);
-        //    EmptySpace position = emptySpaceList[index];
-        //    space[position.rowPosition, position.colPosition]= random.Next(0, 10) == 1 ? 4 : 2;
-        //    emptySpaceList.RemoveAt(index);
-        //}
 
     }
 
