@@ -11,11 +11,17 @@ public class CommandSystem : MonoBehaviour
 
     public void execute(ICommand input)
     {
+        allUsedCommand.Add(input);
         input.execute();
     }
 
     public void undo()
     {
+        if (allUsedCommand.Count == 0)
+            return;
+
+        allUsedCommand[allUsedCommand.Count - 1].undo();
+        allUsedCommand.RemoveAt(allUsedCommand.Count - 1);
 
     }
 }
