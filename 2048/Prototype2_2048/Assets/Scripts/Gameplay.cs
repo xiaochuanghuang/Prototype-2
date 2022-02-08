@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Random = System.Random;
 public struct EmptySpace
 {
    public int rowPosition { get; set; }
    public int colPosition { get; set; }
 
+    /*
+     used to save the empty space
+     */
     public EmptySpace(int row, int col) : this()
     {
         this.colPosition = col;
@@ -34,12 +35,13 @@ public class Gameplay
     //random number 
     private Random random;
     //Previous map
-    private int[,] previous;
+    public int[,] previous;
 
     //Check for game status
     public bool checking { get; set; }
 
-  
+    //can spawn new number
+    public bool canSpawn { get; set; }
 
   
     public Gameplay()
@@ -51,6 +53,7 @@ public class Gameplay
         RemoveEmptyElement = new int[4];
         emptySpaceList = new List<EmptySpace>(16);
         random = new Random();
+        canSpawn = true;
     }
 
     private void GoUp()
@@ -119,6 +122,9 @@ public class Gameplay
             }
         }
     }
+    /*
+     Combined two same number to new a new number
+     */
     private void Combined()
     {
         removeZeroElement();
@@ -134,6 +140,9 @@ public class Gameplay
         removeZeroElement();
     }
 
+    /*
+     Remove the zero element when number moves
+     */
     private void removeZeroElement()
     {
         Array.Clear(RemoveEmptyElement, 0, 4);
@@ -148,6 +157,9 @@ public class Gameplay
         }
         RemoveEmptyElement.CopyTo(combineArray, 0);
     }
+    /*
+     Using switch to control number movement 
+     */
     public void Move(Movement d)
     {
         Array.Copy(space, previous, space.Length);
@@ -171,6 +183,9 @@ public class Gameplay
 
     }
 
+    /*
+     Looking for the empty space
+     */
     public void findingEmptySpace()
     {
         emptySpaceList.Clear();
@@ -185,7 +200,7 @@ public class Gameplay
             }
         }
     }
-
+    // spawn new number in the empty area
     public void spawnNewNumber(out EmptySpace? s, out int? nums )
     {
 
@@ -206,6 +221,7 @@ public class Gameplay
 
     }
 
+    //compare the map is changed or not to dected game state
     public void Compare()
     {
         for (int row = 0; row < 4; row++)
@@ -221,6 +237,7 @@ public class Gameplay
         }
     }
 
+    // gameover check
     public bool Gameover()
     {
         if(emptySpaceList.Count > 0 )

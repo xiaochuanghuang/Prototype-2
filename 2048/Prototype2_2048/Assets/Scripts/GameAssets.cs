@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameAssets : MonoBehaviour
 {
+
+    // render 
     private Image newImage;
     private void Awake()
     {

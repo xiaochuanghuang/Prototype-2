@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    // connect the number and image, render them
     private void initialize()
     {
         for(int row = 0; row < 4; row++)
@@ -36,6 +38,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    // generate sprite 
     private GameAssets generateSprite(int row, int col)
     {
         GameObject g = new GameObject(row.ToString() + col.ToString());
@@ -46,7 +49,7 @@ public class GameController : MonoBehaviour
         g.transform.SetParent(this.transform,false);
         return assets;
     }
-
+    // keeping tracking and updating the map in the screen
     private void updating()
     {
         for (int row = 0; row < 4; row++)
@@ -59,6 +62,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Spawn new number and adding the image for it
     private void generateNumber()
     {
         EmptySpace? s;
@@ -75,16 +79,25 @@ public class GameController : MonoBehaviour
         if (gameplay.checking)
         { 
             updating();
-            generateNumber();
+            if(gameplay.canSpawn)
+            {
+                generateNumber();
+            }
+            else
+            {
+                gameplay.canSpawn = true;
+            }
         }
         gameplay.checking = false;
       
     }
 
+    // Keyboard Control
     public void getInput()
     {
+        
         if (Input.GetKeyDown(KeyCode.W))
-        //gameplay.Move(Movement.Up);
+
         {
             MoveCommand mc = new MoveCommand(gameplay,Movement.Up);
             cs.execute(mc);
@@ -94,18 +107,22 @@ public class GameController : MonoBehaviour
             MoveCommand mc = new MoveCommand(gameplay, Movement.Down);
             cs.execute(mc);
         }
-            //gameplay.Move(Movement.Down);
         if (Input.GetKeyDown(KeyCode.A))
-        //gameplay.Move(Movement.Left);
+   
         {
             MoveCommand mc = new MoveCommand(gameplay, Movement.Left);
             cs.execute(mc);
         }
         if (Input.GetKeyDown(KeyCode.D))
-        //gameplay.Move(Movement.Right);
+   
         {
             MoveCommand mc = new MoveCommand(gameplay, Movement.Right);
             cs.execute(mc);
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            cs.undo();
         }
 
     }

@@ -5,19 +5,24 @@ using UnityEngine;
 //invoker
 public class CommandSystem : MonoBehaviour
 {
-    private List<ICommand> allUsedCommand;
-    
+    private List<ICommand> allUsedCommand = new List<ICommand>();
+    private Gameplay gp = new Gameplay();
     
 
     public void execute(ICommand input)
     {
+    
+       
         allUsedCommand.Add(input);
         input.execute();
+
+
     }
 
     public void undo()
     {
-        if (allUsedCommand.Count == 0)
+
+        if (allUsedCommand.Count ==0 )
             return;
 
         allUsedCommand[allUsedCommand.Count - 1].undo();
