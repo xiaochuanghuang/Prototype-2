@@ -11,8 +11,8 @@ public class CommandSystem : MonoBehaviour
 
     public void execute(ICommand input)
     {
-    
-       
+
+       // if (gp.space) 
         allUsedCommand.Add(input);
         input.execute();
 

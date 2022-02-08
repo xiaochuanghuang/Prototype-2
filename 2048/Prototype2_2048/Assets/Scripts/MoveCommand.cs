@@ -14,7 +14,6 @@ public class MoveCommand : ICommand
 
         this.gp = gp;
         this.m = m;
-        //lastStep = gp.previous;
         Array.Copy(gp.space, lastStep, gp.space.Length);
     }
     public void execute()
