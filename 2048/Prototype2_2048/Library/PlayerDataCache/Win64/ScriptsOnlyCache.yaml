@@ -24,7 +24,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
-    - UnityEngine.UI.Text
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -48,36 +47,30 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1484}
+      Script: {instanceID: 1542}
     - Class: 114
-      Script: {instanceID: 2002}
+      Script: {instanceID: 2348}
     - Class: 114
-      Script: {instanceID: 2290}
+      Script: {instanceID: 2462}
     - Class: 114
-      Script: {instanceID: 2404}
+      Script: {instanceID: 2628}
     - Class: 114
-      Script: {instanceID: 2570}
+      Script: {instanceID: 2654}
     - Class: 114
-      Script: {instanceID: 2596}
+      Script: {instanceID: 2812}
     - Class: 114
-      Script: {instanceID: 2754}
+      Script: {instanceID: 2900}
     - Class: 114
-      Script: {instanceID: 2842}
+      Script: {instanceID: 3562}
     - Class: 114
-      Script: {instanceID: 3504}
+      Script: {instanceID: 4134}
     - Class: 114
-      Script: {instanceID: 4076}
-    - Class: 114
-      Script: {instanceID: 4388}
+      Script: {instanceID: 4446}
     - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -535,4 +528,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/u1067294/Desktop/Build/Prototype2_2048.exe
+  playerPath: D:/EAE6330/2048Build/Prototype2_2048.exe
